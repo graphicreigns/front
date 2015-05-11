@@ -1,0 +1,73 @@
+<div ng-controller="GraphicCtrl" class="page">
+  <div class="panel-heading"><h2> {{title}}</h2></div>
+  <div>  
+    <linechart data="datas" options="options"></linechart>
+  </div>
+	 <div class="row">		 
+		<section class="panel panel-default">
+      <div class="col-sm-3">
+        <span class="ui-select">           
+          <select ng-model="SiteSelect" ng-options="site.name for site in sites">
+            <option value="">-- choose site --</option>
+          </select>
+        </span>
+      </div> 
+      <div class="col-sm-3">           
+      Nombre de commandes <input type="text" ng-model="NumberOfOrders">
+      </div> 
+      <div class="col-sm-2">           
+      Formule <input type="text"ng-model="Formula"> 
+      </div>     
+                <div class="col-sm-3">
+                  Date
+                  <div class="input-group ui-datepicker">
+                    <input type="text" 
+                      class="form-control"
+                      datepicker-popup="{{format}}"
+                      ng-model="dt"
+                      is-open="opened"
+                      min="minDate"
+                      datepicker-options="dateOptions" 
+                      date-disabled="disabled(date, mode)"
+                      ng-required="true" 
+                      close-text="Close">
+                    <span class="input-group-addon" ng-click="open($event)"><i class="fa fa-calendar"></i></span>
+                    <div class="space"></div>
+                    <button class="btn btn-sm btn-info" ng-click="today()">Today</button>
+                  </div>
+                  <div class="callout callout-info">
+                        <p>Date is: {{dt}}</p>
+                    </div>
+                </div>
+                <div class="col-sm-1"> 
+                  <br>
+                  <button type="button" class="btn btn-success" ng-click="AddToData();"><i class="glyphicon glyphicon-plus"></i>Add</button>
+                </div> 
+               </div> 
+               <!-- </div> -->
+                <div class="col-sm-12">
+                <table class="table table-bordered">
+                  <tr>
+                      <th>Date</th>
+                      <th>Palanqué</th>
+                      <th>Canyon</th>
+                      <th>Budle_Diving</th>
+                      <th>Scubaland</th>
+                  </tr>
+                  <tr ng-repeat="data in datas">
+                    <td> {{data.date | date: shortDate}}  </td>
+                    <td> {{data.Palanquee}}  </td>
+                    <td> {{data.Au_vieux_campeur}}</td>
+                    <td> {{data.Bubble_Diving}}</td>
+                    <td> {{data.Scubaland}}</td>
+                    <td > <button type="button" class="btn btn-primary" ng-click="AddToData();"><i class="glyphicon glyphicon-pencil"></i>Set</button><button type="button" class="btn btn-danger" ng-click="DelData();"><i class="glyphicon glyphicon-minus"></i>Del</button>
+                    </td> 
+                  </tr>
+                </table>    
+                </li>
+            </div>
+        </div>
+    </section>
+	</label>  
+</div>
+</html>
