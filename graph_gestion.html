@@ -1,63 +1,69 @@
 <div ng-controller="GraphicCtrl" class="page">
   <div class="panel-heading"><h2> {{title}}</h2></div>
   <div>  
-    <linechart data="datas_mans" options="options"></linechart>
+    <linechart data="datas" options="options"></linechart>
   </div>
-	 <div class="row">		 
+	 <div class="row">	
+
 		<section class="panel panel-default">
-      <div class="col-sm-3">
-        <span class="ui-select">           
-          <select ng-model="SiteSelect">
-            <option ng-repeat="site in sites" value="{{site._id}}">{{site.name}}</option>
-          </select>
-        </span>
-      </div> 
+      <div class="panel-heading"><strong><span class="glyphicon glyphicon-th"></span> Ajouter Données</strong></div>
+      <div class="panel-body">   
+        <div class="col-sm-3">
+        Choose Site 
+          <span class="ui-select">           
+            <select ng-model="SiteSelect"> 
+              <option ng-repeat="site in sites" value="{{site._id}}">{{site.name}}</option>
+            </select>
+          </span>
+        </div> 
 
 
-      <div class="col-sm-3">           
-      Nombre de commandes <input type="text" ng-model="NumberOfOrders">
-      </div> 
+        <div class="col-sm-3">           
+          <input type="text" placeholder="nb commandes" ng-model="NumberOfOrders">
+        </div> 
 
 
 
-      <div class="col-sm-2">           
-      Formule <input type="text"ng-model="Formula"> 
-      </div>     
+        <div class="col-sm-2">           
+         <input type="text" placeholder="Formule" ng-model="Formula"> 
+        </div>     
 
 
-      <div class="col-sm-3">
-        Date
-        <div class="input-group ui-datepicker">
-            <input type="text" 
-              class="form-control"
-              datepicker-popup="{{format}}"
-              ng-model="dt"
-              is-open="opened"
-              min="minDate"
-              datepicker-options="dateOptions" 
-              date-disabled="disabled(date, mode)"
-              ng-required="true" 
-              close-text="Close">
-            <span class="input-group-addon" ng-click="open($event)"><i class="fa fa-calendar"></i></span>
-            <div class="space"></div>
-            <button class="btn btn-sm btn-info" ng-click="today()">Today</button>
-          </div>
-       </div>
+        <div class="col-sm-3">
+          Date
+          <div class="input-group ui-datepicker">
+              <input type="text" 
+                class="form-control"
+                datepicker-popup="{{format}}"
+                ng-model="dt"
+                is-open="opened"
+                min="minDate"
+                datepicker-options="dateOptions" 
+                date-disabled="disabled(date, mode)"
+                ng-required="true" 
+                close-text="Close">
+              <span class="input-group-addon" ng-click="open($event)" ><i class="fa fa-calendar"></i></span>
+              <div class="space"></div>
+              <button class="btn btn-sm btn-info" ng-click="today()">Today</button>
+            </div>
+        </div>
                  <!-- <div class="callout callout-info">
                         <p>Date is: {{dt}}</p>
                     </div> -->
 
-        <div class="col-sm-1"> 
-          <br>
-          <button type="button" class="btn btn-success" ng-click="AddToData();"><i class="glyphicon glyphicon-plus"></i>AddData</button>
-        </div> 
-
-
+          <div class="col-sm-1"> 
+            <br>
+            <button type="button" class="btn btn-success" ng-click="AddToData();"><i class="glyphicon glyphicon-plus"></i>AddData</button>
+          </div> 
+        </div>
+      </section> 
     </div>  
     <div class = "row">  
-      <div class="col-sm-3">
-          Date Debut
-          <div class="input-group ui-datepicker">
+      <section class="panel panel-default">
+        <div class="panel-heading"><strong><span class="glyphicon glyphicon-th"></span> Choix Periode</strong></div>
+        <div class="panel-body"> 
+          <div class="col-sm-3">
+            <div class="input-group ui-datepicker">
               <input type="text" 
                 class="form-control"
                 datepicker-popup="{{format}}"
@@ -68,44 +74,100 @@
                 date-disabled="disabled(date, mode)"
                 ng-required="true"
                 ng-change="checkdate()" 
+                placeholder="Date Debut" 
                 close-text="Close">
 
               <span class="input-group-addon" ng-click="open($event)"><i class="fa fa-calendar"></i></span>
               <div class="space"></div>
               <button class="btn btn-sm btn-info" ng-click="today()">Today</button>
+            </div>
           </div>
+          <div class="col-sm-3"> 
+            <div class="input-group ui-datepicker">
+              <input type="text" 
+                class="form-control"
+                datepicker-popup="{{format}}"
+                ng-model="dtfin"
+                is-open="opened"
+                min="minDate"
+                datepicker-options="dateOptions" 
+                date-disabled="disabled(date, mode)"
+                ng-required="true"
+                ng-change="checkdate()" 
+                placeholder="Date Fin" 
+                close-text="Close">
+              <span class="input-group-addon" ng-click="open($event)"><i class="fa fa-calendar"></i></span>
+              <div class="space"></div>
+              <button class="btn btn-sm btn-info" ng-click="today()">Today</button>
+            </div>
+        </div>
       </div>
-
-      <div class="col-sm-3"> 
-          Date Fin
-          <div class="input-group ui-datepicker">
-            <input type="text" 
-              class="form-control"
-              datepicker-popup="{{format}}"
-              ng-model="dtfin"
-              is-open="opened"
-              min="minDate"
-              datepicker-options="dateOptions" 
-              date-disabled="disabled(date, mode)"
-              ng-required="true"
-              ng-change="checkdate()" 
-              close-text="Close">
-            <span class="input-group-addon" ng-click="open($event)"><i class="fa fa-calendar"></i></span>
-            <div class="space"></div>
-            <button class="btn btn-sm btn-info" ng-click="today()">Today</button>
-          </div>
-      </div>
-    </div>
+    </section>
+  </div>
     <div class = "row">
-      <div class = "col-sm-6">
-        <textarea class="form-control" rows="4" ng-model="commentaire"> </textarea>
-      </div> 
-      <div class = "col-sm-2">
-        <button type="button" class="btn btn-success" ng-click="AddToComment();">
-          <i class="glyphicon glyphicon-plus"></i>AddComment
-        </button>
-      </div>
+      <section class="panel panel-default">
+        <div class="panel-heading"><strong><span class="glyphicon glyphicon-th"></span>Ajout de commentaire</strong></div>
+        <div class="panel-body">
+          <div class="col-sm-2">
+            Choose User
+            <span class="ui-select">           
+              <select ng-model="SiteSelect" >
+              <option ng-repeat="site in sites" value="{{site._id}}">{{site.name}}</option>
+              </select>
+            </span>
+          </div> 
       
+          <div class="col-sm-2"> 
+              <div class="input-group ui-datepicker">
+                <input type="text" 
+                  class="form-control"
+                  datepicker-popup="{{format}}"
+                  ng-model="dtdebutc"
+                  is-open="opened"
+                  min="minDate"
+                  datepicker-options="dateOptions" 
+                  date-disabled="disabled(date, mode)"
+                  ng-required="true"
+                  ng-change="checkdate()"
+                  placeholder="Date Debut" 
+                  close-text="Close">
+                <span class="input-group-addon" ng-click="open($event)"><i class="fa fa-calendar"></i></span>
+                <div class="space"></div>
+                <button class="btn btn-sm btn-info" ng-click="today()">Today</button>
+              </div>
+            </div>
+          <div class="col-sm-2"> 
+
+            
+              <div class="input-group ui-datepicker">
+                <input type="text" 
+                  class="form-control"
+                  datepicker-popup="{{format}}"
+                  ng-model="dtfinc"
+                  is-open="opened"
+                  min="minDate"
+                  datepicker-options="dateOptions" 
+                  date-disabled="disabled(date, mode)"
+                  ng-required="true"
+                  ng-change="checkdate()" 
+                  placeholder="Date Fin" 
+                  close-text="Close">
+                <span class="input-group-addon" ng-click="open($event)"><i class="fa fa-calendar"></i></span>
+                <div class="space"></div>
+                <button class="btn btn-sm btn-info" ng-click="today()">Today</button>
+              </div>
+              </div>
+              <div class = "col-sm-4">
+            <textarea class="form-control" rows="4" ng-model="commentaire"> </textarea>
+          </div> 
+          <div class = "col-sm-1">
+            <button type="button" class="btn btn-success" ng-click="AddToComment();">
+              <i class="glyphicon glyphicon-plus"></i>AddComment
+            </button>
+           </div>
+          </div> 
+        </section>
+      </div> 
       <div class="col-sm-12">
           <table class="table table-bordered">
            <tr>
