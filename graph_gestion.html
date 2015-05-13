@@ -1,7 +1,7 @@
 <div ng-controller="GraphicCtrl" class="page">
   <div class="panel-heading"><h2> {{title}}</h2></div>
   <div>  
-    <linechart data="datas" options="options"></linechart>
+    <linechart data="datas_mans" options="options"></linechart>
   </div>
 	 <div class="row">		 
 		<section class="panel panel-default">
@@ -53,18 +53,8 @@
         </div> 
 
 
-      </div>  
-      
-
-      <textarea ng-model="commentaire"> </textarea>
-               
-
-
-      <button type="button" class="btn btn-success" ng-click="AddToComment();">
-        <i class="glyphicon glyphicon-plus"></i>AddComment
-      </button>
-                
-
+    </div>  
+    <div class = "row">  
       <div class="col-sm-3">
           Date Debut
           <div class="input-group ui-datepicker">
@@ -85,7 +75,6 @@
               <button class="btn btn-sm btn-info" ng-click="today()">Today</button>
           </div>
       </div>
-                 
 
       <div class="col-sm-3"> 
           Date Fin
@@ -106,8 +95,17 @@
             <button class="btn btn-sm btn-info" ng-click="today()">Today</button>
           </div>
       </div>
-
-
+    </div>
+    <div class = "row">
+      <div class = "col-sm-6">
+        <textarea class="form-control" rows="4" ng-model="commentaire"> </textarea>
+      </div> 
+      <div class = "col-sm-2">
+        <button type="button" class="btn btn-success" ng-click="AddToComment();">
+          <i class="glyphicon glyphicon-plus"></i>AddComment
+        </button>
+      </div>
+      
       <div class="col-sm-12">
           <table class="table table-bordered">
            <tr>
@@ -125,10 +123,11 @@
               <td > <button type="button" class="btn btn-primary" ng-click="AddToData();"><i class="glyphicon glyphicon-pencil"></i>Set</button><button type="button" class="btn btn-danger" ng-click="DelData();"><i class="glyphicon glyphicon-minus"></i>Del</button>
               </td> 
           -->
-          <tr ng-repeat="(index,datatest) in datatests">
+       
+          <tr ng-repeat="(index,data) in datas">
               <td> {{index}}</td>
-              <td> {{datatest.date | date: shortDate}}</td>
-              <th ng-repeat="site in sites">{{datatest[site.name]}}</th>
+              <td> {{data.date | date: shortDate}}</td>
+              <th ng-repeat="site in sites">{{data[site.name]}}</th>
           </tr>
           </table> 
       </div> 

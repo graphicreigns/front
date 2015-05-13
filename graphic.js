@@ -9,18 +9,25 @@ function ($scope, $location, $cookieStore, $http, $modal, localize) {
   $scope.dtfin= new Date();
   $scope.dtdebut= new Date($scope.dtfin.getTime()-(7*30*24*60*60*1000));
   console.log($scope.dtdebut); 
-
   console.log($scope.dtfin);
+  //console.log(_.size(data));
   //console.log(Object.keys($scope.datatests)); 
+  
+
+
   $scope.checkdate = function() 
   {
     //console.log($scope.dtdebut); 
     $http.post('/graphic/getstat_command',{"debut":$scope.dtdebut.getTime(), "fin":$scope.dtfin.getTime()}).success(function(data){
-   console.log("length of data", data.length);
-   $scope.datatests=data;
+   //console.log("length of data", _.size(data));
+   _.map(data,function(obj){
+    obj.date = new Date(obj.date);
+   });
+
+   $scope.datas=data;
     //$scope.datas=data;
     if(data.length>0){
-       console.log(Object.keys($scope.datatests[0]));     
+       console.log(Object.keys($scope.datas[0]));     
     };
 
 });
@@ -75,230 +82,36 @@ function ($scope, $location, $cookieStore, $http, $modal, localize) {
     }
       ];
   */
-  /*  $scope.datas = [
+    $scope.datas_mans = [
   {
     date: new Date("2014,03,24"),
-    Palanquee: 32.14,
-    Au_vieux_campeur: 102,
-    Bubble_Diving: 21.57,
-    Scubaland: 23.14 
+    Scubaland: 32.14,
+    VieuxPlongeur: 102,
+    Decathlon: 21.57,
+    Palanquee: 45
+  
   
   },
   {
     date: new Date("2014,04,02"),
-    Palanquee: 48.25,
-    Au_vieux_campeur: 111,
-    Bubble_Diving: 25.13,
-    Scubaland: 21.88
+    Scubaland: 48.25,
+    VieuxPlongeur: 111,
+    Decathlon: 25.13,
+    Palaquee: 35
+
 
   },
   {
     date: new Date("2014-04-07T22:00:00.000Z"),
-    Palanquee: 41.71,
-    Au_vieux_campeur: 124,
-    Bubble_Diving: 24,
-    Scubaland: 25.14
-  },
-  {
-    date: new Date("2014-04-13T22:00:00.000Z"),
-    Palanquee: 44.50,
-    Au_vieux_campeur: 135,
-    Bubble_Diving: 31.33,
-    Scubaland: 28.67
-  },
-  {
-    date: new Date("2014-04-20T22:00:00.000Z"),
-    Palanquee: 33.29,
-    Au_vieux_campeur: 64,
-    Bubble_Diving: 24.71,
-    Scubaland: 18.57
-  },
-  {
-    date: new Date("2014-04-29T22:00:00.000Z"),
-    Palanquee: 51.11,
-    Au_vieux_campeur: 69,
-    Bubble_Diving: 29.56,
-    Scubaland: 18.57
-  },
-  {
-    date: new Date("2014-05-05T22:00:00.000Z"),
-    Palanquee: 42.50,
-    Au_vieux_campeur: 74,
-    Bubble_Diving: 19.83,
-    Scubaland: 19.33
-  },
-  {
-    date: new Date("2014-05-12T22:00:00.000Z"),
-    Palanquee: 73.14,
-    Au_vieux_campeur: 94,
-    Bubble_Diving: 41.75,
-    Scubaland: 24.17
-  },
-  {
-    date: new Date("2014-05-21T22:00:00.000Z"),
-    Palanquee: 31,
-    Au_vieux_campeur: 54,
-    Bubble_Diving: 17.67,
-    Scubaland: 34.14
-  },
-  {
-    date: new Date("2014-06-01T22:00:00.000Z"),
-    Palanquee: 48.45,
-    Au_vieux_campeur: 75,
-    Bubble_Diving: 26.91,
-    Scubaland: 17.89
-
-
-  },
-  {
-    date: new Date("2014-06-09T22:00:00.000Z"),
-    Palanquee: 34.13,
-    Au_vieux_campeur: 90,
-    Bubble_Diving: 20.50,
-    Scubaland: 19.45
-
+    Scubaland: 41.71,
+    VieuxPlongeur: 124,
+    Decathlon: 24,
+    Palanquee: 30
   
-  },
-  {
-    date: new Date("2014-06-16T22:00:00.000Z"),
-    Palanquee: 52.43,
-    Au_vieux_campeur: 41.71,
-    Bubble_Diving: 35.43,
-    Scubaland: 27.63  
-   
-  },
-  {
-    date: new Date("2014-06-23T22:00:00.000Z"),
-    Palanquee: 41.71,
-    Au_vieux_campeur: 107,
-    Bubble_Diving: 22.57,
-    Scubaland: 24.14
-  },
-  {
-    date: new Date("2014-06-30T22:00:00.000Z"),
-    Palanquee: 44,
-    Au_vieux_campeur: 127,
-    Bubble_Diving: 31,
-    Scubaland: 21.29
-  },
-  {
-    date: new Date("2014-07-07T22:00:00.000Z"),
-    Palanquee: 59.57,
-    Au_vieux_campeur: 139,
-    Bubble_Diving: 36,
-    Scubaland: 26.57 
-  },
-  {
-    date: new Date("2014-07-14T22:00:00.000Z"),
-    Palanquee: 51.71,
-    Au_vieux_campeur: 109,
-    Bubble_Diving: 25.86, 
-    Scubaland: 25.57
-   
-  },
-  {
-    date: new Date("2014-07-27T22:00:00.000Z"),
-    Palanquee: 40,
-    Au_vieux_campeur: 105,
-    Bubble_Diving: 22.38,
-    Scubaland: 19
-  },
-  {
-    date: new Date("2014-08-03T22:00:00.000Z"),
-    Palanquee: 51.43,
-    Au_vieux_campeur: 117,
-    Bubble_Diving: 30.43,
-    Scubaland: 20.08
-  },
-  {
-    date: new Date("2014-08-06T22:00:00.000Z"),
-    Palanquee: 42.33, 
-    Bubble_Diving: 30.33,
-    Scubaland: 21.29
-  },
-  {
-    date: new Date("2014-08-08T22:00:00.000Z"),
-    Palanquee: 49.50,
-    Bubble_Diving: 27.50,
-    Scubaland: 20.33
- 
-  },
-  {
-    date: new Date("2014-08-11T22:00:00.000Z"),
-    Palanquee: 42.75,
-    Au_vieux_campeur: 86,
-    Bubble_Diving: 26,
-    Scubaland: 21.50 
-
-  },
-  {
-    date: new Date("2014-08-17T22:00:00.000Z"),
-    Palanquee: 38.33,
-    Au_vieux_campeur: 77, 
-    Bubble_Diving: 26.33,
-    Scubaland: 19.25
-  },
-  {
-    date: new Date("2014-08-24T22:00:00.000Z"),
-    Palanquee: 33,
-    Au_vieux_campeur: 95, 
-    Bubble_Diving: 23.57,
-    Scubaland: 13.17
-  },
-  {
-    date: new Date("2014-08-31T22:00:00.000Z"),
-    Palanquee: 46,
-    Au_vieux_campeur: 83,
-    Bubble_Diving: 34.71,
-    Scubaland: 15.86
- 
-  },
-  {
-    date: new Date("2014-09-05T22:00:00.000Z"),
-    Palanquee: 35,
-    Au_vieux_campeur: 81,
-    Bubble_Diving: 14,
-    Scubaland: 17.57
-   
-  },
-  {
-    date: new Date("2014-09-07T22:00:00.000Z"),
-    Palanquee: 64,
-    Bubble_Diving: 27,
-    Scubaland: 17
-  },
-  {
-    date: new Date("2014-09-08T22:00:00.000Z"),
-    Palanquee: 35.17,
-    Au_vieux_campeur: 81,
-    Bubble_Diving: 29.83,
-    Scubaland: 15
-    
-  },
-  {
-    date: new Date("2014-09-14T22:00:00.000Z"),
-    Palanquee: 43.71,
-    Au_vieux_campeur: 92,
-    Bubble_Diving: 17.43,
-    Scubaland: 25
-  },
-  {
-    date: new Date("2014-09-21T22:00:00.000Z"),
-    Palanquee: 33,
-    Au_vieux_campeur: 83,
-    Bubble_Diving: 12.57,
-    Scubaland: 18.33
-  },
-  {
-    date: new Date("2014-09-28T22:00:00.000Z"),
-    Palanquee: 49.14,
-    Au_vieux_campeur: 113,
-    Bubble_Diving: 11.86, 
-    Scubaland: 18.57
   }
 
 ];
-*/
+
 $scope.options = {
   lineMode: "cardinal",
   tension: 0.7,
@@ -310,8 +123,8 @@ $scope.options = {
   stacks: [],
   series: [
     {
-      y: "VieuxPlongeur",
-      label: "VieuxPlongeur",
+      y: "Scubaland",
+      label: "Scubaland",
       axis: "y",
       color: "#d55d5e",
       type: "line",
@@ -322,8 +135,8 @@ $scope.options = {
       lineMode: undefined
     },
     {
-      y: "Au_vieux_campeur",
-      label: "Au vieux campeur",
+      y: "VieuxPlongeur",
+      label: "VieuxPlongeur",
       color: "#7a1f20",
       axis: "y",
       type: "line",
@@ -334,8 +147,8 @@ $scope.options = {
       drawDots: true
     },
      {
-      y: "Ts-heinemann",
-      label: "Bubble Diving",
+      y: "Decathlon",
+      label: "Decathlon",
       axis: "y",
       color: "#990099",
       type: "line",
@@ -346,10 +159,10 @@ $scope.options = {
       lineMode: undefined
     },
      {
-      y: "Scubaland",
-      label: "Scubaland",
+      y: "Palanquee",
+      label: "Palanquee",
       axis: "y",
-      color: "#2db41f",
+      color: "#324900",
       type: "line",
       thickness: "5px",
       dotSize: 2,
@@ -357,6 +170,7 @@ $scope.options = {
       drawDots: true,
       lineMode: undefined
     }
+     
   ], // on affiche la date format JJ/MM,AAAA   
   tooltip: {mode: "scrubber", formatter: function(x, y, series) {var affiche_x=new Date(x); 
     return affiche_x.getDate()+"/"+(affiche_x.getMonth()+1)+"/"+ affiche_x.getFullYear() + " :" + y;}},
