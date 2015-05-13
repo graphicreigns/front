@@ -1,12 +1,36 @@
 APP.controller('GraphicCtrl', ['$scope', '$location', '$cookieStore', '$http','$modal','localize',
 function ($scope, $location, $cookieStore, $http, $modal, localize) {
-	$scope.title="Gestion des Graphics";
-	$scope.AddSellQuantity="";
+  $scope.title="Gestion des Graphics";
+  $scope.AddSellQuantity="";
   $scope.sites=[]; 
+  $scope.datas=[]; 
+  $scope.datatests=[];
   $scope.user = $cookieStore.get('userID_admin');
-	//$scope.AddToData =  function(){
-	//	$http.post('/graphic/putstat_command',{"sellquantity":$scope.AddSellQuantity});	
-	 $scope.today = function() {
+  $scope.dtfin= new Date();
+  $scope.dtdebut= new Date($scope.dtfin.getTime()-(7*30*24*60*60*1000));
+  console.log($scope.dtdebut); 
+
+  console.log($scope.dtfin);
+  //console.log(Object.keys($scope.datatests)); 
+  $scope.checkdate = function() 
+  {
+    //console.log($scope.dtdebut); 
+    $http.post('/graphic/getstat_command',{"debut":$scope.dtdebut.getTime(), "fin":$scope.dtfin.getTime()}).success(function(data){
+   console.log("length of data", data.length);
+   $scope.datatests=data;
+    //$scope.datas=data;
+    if(data.length>0){
+       console.log(Object.keys($scope.datatests[0]));     
+    };
+
+});
+  };
+  $scope.AddToData = function(){
+    $http.post('/graphic/putstat_command',{"nb":$scope.NumberOfOrders,"date":$scope.dt.getTime(),"id_site": $scope.SiteSelect});
+
+  } 
+
+   $scope.today = function() {
         return $scope.dt = new Date();
       };
       $scope.today();
@@ -36,9 +60,9 @@ function ($scope, $location, $cookieStore, $http, $modal, localize) {
         'year-format': "'yy'",
         'starting-day': 1
       };
-    $scope.formats = ['dd-MMMM-yyyy', 'yyyy/MM/dd', 'shortDate']
+    $scope.formats = ['dd-MMMM-yyyy', 'yyyy/MM/dd', 'shortDate'];
 
-//	  $scope.formats = 'shortDate';
+//    $scope.formats = 'shortDate';
   /*  $scope.sites = [
     {name: "palanque",
      id: 1
@@ -51,7 +75,7 @@ function ($scope, $location, $cookieStore, $http, $modal, localize) {
     }
       ];
   */
-    $scope.datas = [
+  /*  $scope.datas = [
   {
     date: new Date("2014,03,24"),
     Palanquee: 32.14,
@@ -274,6 +298,7 @@ function ($scope, $location, $cookieStore, $http, $modal, localize) {
   }
 
 ];
+*/
 $scope.options = {
   lineMode: "cardinal",
   tension: 0.7,
@@ -285,8 +310,8 @@ $scope.options = {
   stacks: [],
   series: [
     {
-      y: "Palanquee",
-      label: "Palanqué",
+      y: "VieuxPlongeur",
+      label: "VieuxPlongeur",
       axis: "y",
       color: "#d55d5e",
       type: "line",
@@ -309,7 +334,7 @@ $scope.options = {
       drawDots: true
     },
      {
-      y: "Bubble_Diving",
+      y: "Ts-heinemann",
       label: "Bubble Diving",
       axis: "y",
       color: "#990099",
@@ -338,10 +363,12 @@ $scope.options = {
   columnsHGap: 5
 };
 $http.post('/graphic/getsite').success(function(data){
-    //console.log(data);
+    // console.log(data);
      $scope.sites=data;
     //_.map($scope.site,function(obj){obj.deleted=false});
   }); 
+
+$scope.checkdate();
   /*
      $scope.datas = [
         {date: 0, value: 1 },
@@ -350,7 +377,7 @@ $http.post('/graphic/getsite').success(function(data){
         {date: 3, value: 16},
         {date: 4, value: 23},
         {date: 5, value: 42}
-	];
+  ];
 
     //'$scope', function($scope) {
     $scope.options = {
@@ -368,7 +395,8 @@ $http.post('/graphic/getsite').success(function(data){
     drawLegend: true,
     drawDots: true,
     columnsHGap: 5
-	};
+  };
   */
+
 }]);
 //http://bl.ocks.org/zanarmstrong/ca0adb7e426c12c06a95
