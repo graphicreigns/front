@@ -105,7 +105,7 @@
             <textarea class="form-control" rows="4" ng-model="Commentaire"> </textarea>
           </div> 
           <div class = "col-sm-1">
-            <button type="button" class="btn btn-success" ng-click="AddToComment();">
+            <button type="button" class="btn btn-success" ng-click="AddToComment(); checkdatecomment();">
               <i class="glyphicon glyphicon-plus"></i>AddComment
             </button>
            </div>
@@ -124,9 +124,7 @@
               </select>
             </span>
           </div> 
-          {{UserSelect}}
-          {{dtc}}
-          <div class="col-sm-6"> 
+          <div class="col-sm-4"> 
               <div class="input-group ui-datepicker">
                 <input type="text" 
                   class="form-control"
@@ -142,18 +140,22 @@
                 <span class="input-group-addon" ng-click="open5($event)"><i class="fa fa-calendar"></i></span>
                 <div class="space"></div>
                 <button class="btn btn-sm btn-info" ng-click="today()">Today</button>
+               </div> 
+            </div>
+            <div class = "col-sm-6">   
                 <table class="table table-bordered">
                 <tr>
                   <th>Du</th>
                   <th>Au </th>
                   <th>Comment</th>
                 </tr>
-                <tr ng-repeat="commentaire in commentaires"> 
+                <tr ng-repeat="commentaire in commentaires | orderBy: '-date_fin' "> 
                   <td>{{commentaire.date_debut | date: shortDate}}</td> 
                   <td>{{commentaire.date_fin | date :shortDate}}</td> 
                   <td>{{commentaire.contenu}}</td>   
                 </tr> 
-              </table>   
+              </table>
+              </div>   
               </div>
             </div>
           </div> 

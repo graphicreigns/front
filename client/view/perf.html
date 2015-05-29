@@ -1,0 +1,134 @@
+<div ng-controller="PerfCtrl" class="page">
+   <section class="panel panel-default">
+    <div class="panel-heading"><strong><span class="glyphicon glyphicon-th"></span> Indice de performance</strong></div>
+  <div>  
+    <linechart data="datas" options="options"></linechart>
+  </div>
+</section>
+	 <div class="row">		 
+      <section class="panel panel-default">
+      <div class="panel-heading"><strong><span class="glyphicon glyphicon-th"></span> Choix des dates</strong></div>
+      <div class="panel-body">   
+                <div class="col-sm-4">
+                  Date de depart graphique  
+                  <div class="input-group ui-datepicker">
+                    <input type="text" 
+                      class="form-control"
+                      datepicker-popup="{{format}}"
+                      ng-model="dtdeb"
+                      is-open="opened1"
+                      min="minDate"
+                      datepicker-options="dateOptions" 
+                      date-disabled="disabled(date, mode)"
+                      ng-required="true" 
+                      ng-change="checkdate()" 
+                      placeholder="Debut" 
+                      close-text="Close">
+                    <span class="input-group-addon" ng-click="open1($event)"><i class="fa fa-calendar"></i></span>
+                    <div class="space"></div>
+                    <button class="btn btn-sm btn-info" ng-click="today()">Today</button>
+                  </div>
+                  </div>
+                   <div class="col-sm-4">
+                    Date de fin graphique
+                  <div class="input-group ui-datepicker">
+                    <input type="text" 
+                      class="form-control"
+                      datepicker-popup="{{format}}"
+                      ng-model="dtfin"
+                      is-open="opened2"
+                      min="minDate"
+                      datepicker-options="dateOptions" 
+                      date-disabled="disabled(date, mode)"
+                      ng-required="true"
+                      ng-change="checkdate()" 
+                      placeholder="Fin" 
+                      close-text="Close">
+                    <span class="input-group-addon" ng-click="open2($event)"><i class="fa fa-calendar"></i></span>
+                    <div class="space"></div>
+                    <button class="btn btn-sm btn-info" ng-click="today()">Today</button>
+                  </div>
+                  </div>
+               
+               <div class="col-sm-4"> 
+                Date commentaire
+              <div class="input-group ui-datepicker">
+                <input type="text" 
+                  class="form-control"
+                  datepicker-popup="{{format}}"
+                  ng-model="dtc"
+                  is-open="opened5"
+                  min="minDate"
+                  datepicker-options="dateOptions" 
+                  date-disabled="disabled(date, mode)"
+                  ng-required="true"
+                  ng-change="checkdatecomment()"
+                  close-text="Close">
+                <span class="input-group-addon" ng-click="open5($event)"><i class="fa fa-calendar"></i></span>
+                <div class="space"></div>
+                <button class="btn btn-sm btn-info" ng-click="today()">Today</button> 
+              </div>
+            </div>
+          </div>
+         </div>
+        </section> 
+          <div class="row">  
+               <!-- </div> -->
+               
+            <!--    <table class="table table-bordered">
+                  <tr>
+                      <th>Date</th>
+                      <th>Palanqué</th>
+                      <th>Canyon</th>
+                      <th>Budle_Diving</th>
+                      <th>Scubaland</th>
+                  </tr>
+                  <tr ng-repeat="data in datas">
+                    <td> {{data.date | date: shortDate}}  </td>
+                    <td> {{data.Palanquee}}  </td>
+                    <td> {{data.Au_vieux_campeur}}</td>
+                    <td> {{data.Bubble_Diving}}</td>
+                    <td> {{data.Scubaland}}</td>
+                  </tr>
+                </table> 
+              </div>
+               --> 
+               <section class="panel panel-default">
+                <div class="panel-heading"><strong><span class="glyphicon glyphicon-th"></span> Tableau de données et commentaires</strong></div>
+                <div class="panel-body">
+                <div class="col-sm-6">
+                  
+                  <table class="table table-bordered">
+                    <tr>
+                      <th>Date</th>
+                      <th ng-repeat="lesserie in lesseries">{{lesserie.y}}</th>
+                    </tr>
+                    <tr ng-repeat="(index,data) in datas | orderBy:'-date'"> 
+                      <td> {{data.date | date: shortDate}} </td>
+                <th ng-repeat="lesserie in lesseries">{{data[lesserie.y]}} </th>
+          </tr>
+          </table> 
+          </div> 
+           <div class="col-sm-6">        
+            <table class="table table-bordered">
+                <tr>
+                  <th>Du</th>
+                  <th>Au </th>
+                  <th>Comment</th>
+                </tr>
+                <tr ng-repeat="commentaire in commentaires | orderBy: '-date_fin' "> 
+                  <td>{{commentaire.date_debut | date: shortDate}}</td> 
+                  <td>{{commentaire.date_fin | date :shortDate}}</td> 
+                  <td>{{commentaire.contenu}}</td>   
+                </tr> 
+              </table>    
+                </div>     
+                </li>
+            </div>
+      </div>
+     </div>
+      </section> 
+       </div>
+     
+</div>
+</html>

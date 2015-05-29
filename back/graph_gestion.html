@@ -109,24 +109,12 @@
            <tr>
                
                 <th>Date</th>
-                <th ng-repeat="site in sites">{{site.name}}</th>
+                <th ng-repeat="lesserie in lesseries">{{lesserie.y}}</th>
                 
             </tr>
-            <!--<tr ng-repeat="data in datas">
-              <td> {{data.date | date: shortDate}}  </td>
-              <td> {{data.Palanquee}}  </td>
-              <td> {{data.Au_vieux_campeur}}</td>
-              <td> {{data.Bubble_Diving}}</td>
-              <td> {{data.Scubaland}}</td>
-              <td > <button type="button" class="btn btn-primary" ng-click="AddToData();"><i class="glyphicon glyphicon-pencil"></i>Set</button><button type="button" class="btn btn-danger" ng-click="DelData();"><i class="glyphicon glyphicon-minus"></i>Del</button>
-              </td> 
-          -->
-       
-          <tr ng-repeat="(index,data) in datas">
-              
-              
+          <tr ng-repeat="(index,data) in datas | orderBy:'-date'"> 
               <td> {{data.date | date: shortDate}} </td>
-              <th ng-repeat="site in sites">{{data[site.name]}} 
+              <th ng-repeat="lesserie in lesseries">{{data[lesserie.y]}} 
                 <span class="glyphicon glyphicon-remove" ng-click="deleteStat(data.date,data[site.name])"></span>
                 <span class="glyphicon glyphicon-pencil" ng-click="modifyStat(index,data.date,data[site.name])"></span></th>
           </tr>
