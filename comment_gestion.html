@@ -1,0 +1,162 @@
+<div ng-controller="GraphicCtrl" class="page">
+ <div class="panel-heading"><h2> Gestion des Commentaires  </h2></div>
+ 	<div>  
+    	<linechart data="datas" options="options"></linechart>
+    </div>
+    <div class = "row">  
+      <section class="panel panel-default">
+        <div class="panel-heading"><strong><span class="glyphicon glyphicon-th"></span> Choix Periode</strong></div>
+        <div class="panel-body"> 
+          <div class="col-sm-3">
+            <div class="input-group ui-datepicker">
+              <input type="text" 
+                class="form-control"
+                datepicker-popup="{{format}}"
+                ng-model="dtdebut"
+                is-open="opened1"
+                min="minDate"
+                datepicker-options="dateOptions" 
+                date-disabled="disabled(date, mode)"
+                ng-required="true"
+                ng-change="checkdate()" 
+                placeholder="Date Debut" 
+                close-text="Close">
+              	<span class="input-group-addon" ng-click="open1($event)"><i class="fa fa-calendar"></i></span>
+              	<div class="space"></div>
+              	<button class="btn btn-sm btn-info" ng-click="today()">Today</button>
+            </div>
+          </div>
+        <div class="col-sm-3"> 
+            <div class="input-group ui-datepicker">
+              <input type="text" 
+                class="form-control"
+                datepicker-popup="{{format}}"
+                ng-model="dtfin"
+                is-open="opened2"
+                min="minDate"
+                datepicker-options="dateOptions" 
+                date-disabled="disabled(date, mode)"
+                ng-required="true"
+                ng-change="checkdate()" 
+                placeholder="Date Fin" 
+                close-text="Close">
+              	<span class="input-group-addon" ng-click="open2($event)"><i class="fa fa-calendar"></i></span>
+              	<div class="space"></div>
+              	<button class="btn btn-sm btn-info" ng-click="today()">Today</button>
+            </div>
+        </div>
+      </div>
+    </section>
+  </div>
+  <div class = "row">
+      <section class="panel panel-default">
+        <div class="panel-heading"><strong><span class="glyphicon glyphicon-th"></span>Ajout de commentaire</strong></div>
+        <div class="panel-body">
+          <div class="col-sm-2">
+            Choose User
+            <span class="ui-select">           
+              <select ng-model="UserSelect" >
+              <option ng-repeat="user in users" value="{{user._id}}">{{user.site_name}}</option>
+              </select>
+            </span>
+          </div> 
+      
+          <div class="col-sm-2"> 
+              <div class="input-group ui-datepicker">
+                <input type="text" 
+                  class="form-control"
+                  datepicker-popup="{{format}}"
+                  ng-model="dtdebutc"
+                  is-open="opened3"
+                  min="minDate"
+                  datepicker-options="dateOptions" 
+                  date-disabled="disabled(date, mode)"
+                  ng-required="true"
+                  ng-change=""
+                  placeholder="Date Debut" 
+                  close-text="Close">
+                <span class="input-group-addon" ng-click="open3($event)"><i class="fa fa-calendar"></i></span>
+                <div class="space"></div>
+                <button class="btn btn-sm btn-info" ng-click="today()">Today</button>
+              </div>
+            </div>
+          <div class="col-sm-2"> 
+
+            
+              <div class="input-group ui-datepicker">
+                <input type="text" 
+                  class="form-control"
+                  datepicker-popup="{{format}}"
+                  ng-model="dtfinc"
+                  is-open="opened4"
+                  min="minDate"
+                  datepicker-options="dateOptions" 
+                  date-disabled="disabled(date, mode)"
+                  ng-required="true"
+                  ng-change="" 
+                  placeholder="Date Fin" 
+                  close-text="Close">
+                <span class="input-group-addon" ng-click="open4($event)"><i class="fa fa-calendar"></i></span>
+                <div class="space"></div>
+                <button class="btn btn-sm btn-info" ng-click="today()">Today</button>
+              </div>
+              </div>
+              <div class = "col-sm-4">
+            <textarea class="form-control" rows="4" ng-model="Commentaire"> </textarea>
+          </div> 
+          <div class = "col-sm-1">
+            <button type="button" class="btn btn-success" ng-click="AddToComment();">
+              <i class="glyphicon glyphicon-plus"></i>AddComment
+            </button>
+           </div>
+          </div> 
+        </section>
+      </div>
+      <div class = "row">
+      <section class="panel panel-default">
+        <div class="panel-heading"><strong><span class="glyphicon glyphicon-th"></span>Gestion des commentaires</strong></div>
+        <div class="panel-body">
+          <div class="col-sm-2">
+            Choose User
+            <span class="ui-select">           
+              <select ng-model="UserSelect" ng-change="checkdatecomment()">
+              <option  ng-repeat="user in users" value="{{user._id}}">{{user.site_name}}</option>
+              </select>
+            </span>
+          </div> 
+          {{UserSelect}}
+          {{dtc}}
+          <div class="col-sm-6"> 
+              <div class="input-group ui-datepicker">
+                <input type="text" 
+                  class="form-control"
+                  datepicker-popup="{{format}}"
+                  ng-model="dtc"
+                  is-open="opened5"
+                  min="minDate"
+                  datepicker-options="dateOptions" 
+                  date-disabled="disabled(date, mode)"
+                  ng-required="true"
+                  ng-change="checkdatecomment()"
+                  close-text="Close">
+                <span class="input-group-addon" ng-click="open5($event)"><i class="fa fa-calendar"></i></span>
+                <div class="space"></div>
+                <button class="btn btn-sm btn-info" ng-click="today()">Today</button>
+                <table class="table table-bordered">
+                <tr>
+                  <th>Du</th>
+                  <th>Au </th>
+                  <th>Comment</th>
+                </tr>
+                <tr ng-repeat="commentaire in commentaires"> 
+                  <td>{{commentaire.date_debut | date: shortDate}}</td> 
+                  <td>{{commentaire.date_fin | date :shortDate}}</td> 
+                  <td>{{commentaire.contenu}}</td>   
+                </tr> 
+              </table>   
+              </div>
+            </div>
+          </div> 
+        </section>
+      </div> 
+ </div>	
